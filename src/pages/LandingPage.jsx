@@ -6,82 +6,88 @@ import SearchInput from '../components/SearchInput';
 import Footer from '../components/Footer';
 import imagePlaceholder from '../assets/imagePlaceholder.png';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function LandingPage() {
-  const [inputSearch, setinputSearch] = useState('');
+  const [inputSearch, setInputSearch] = useState('');
   const userId = localStorage.getItem('userId');
   const url1 = `https://667ba97dbd627f0dcc9358df.mockapi.io/LagacyBookstore/${userId}`;
-  const url2 = `https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=s2775g3di5VkoX0jmyif1P9Px78znALO`;
-  const [imageUrl, setimageUrl] = useState(imagePlaceholder);
-  const [inputImageUrl, setinputImageUrl] = useState('');
-  const [showAvatarModel, setshowAvatarModel] = useState(false);
-  const [errorAlert, seterrorAlert] = useState(false);
-  const [editAlert, seteditAlert] = useState(false);
-  const [data, setdata] = useState([]);
-  const [databooks, setdataBooks] = useState([]);
-  const [filteredDataBooks, setFilteredDataBooks] = useState([]);
+  const url2 = `https://api.nytimes.com/svc/books/v3/lists/hardcover-fiction.json?api-key=s2775g3di5VkoX0jmyif1P9Px78znALO`;
+  const [imageUrl, setImageUrl] = useState(imagePlaceholder);
+  const [inputImageUrl, setInputImageUrl] = useState('');
+  const [showAvatarModel, setShowAvatarModel] = useState(false);
+  const [errorAlert, setErrorAlert] = useState(false);
+  const [editAlert, setEditAlert] = useState(false);
+  const [userData, setUserData] = useState(null);
+  const [booksData, setBooksData] = useState([]);
+  const [filteredBooks, setFilteredBooks] = useState([]);
   const [likes, setLikes] = useState([]);
-  const [bookmarks, setBookmarks] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (userId) {
-      fetchData();
-    }
+    fetchData();
     fetchBooks();
   }, []);
 
   const fetchData = () => {
-    axios.get(url1).then((response) => {
-      const userData = response.data;
-      setdata(userData);
-      setLikes(userData.booksLiked || []);
-      setBookmarks(userData.booksBookmarked || []);
-      if (userData.imgUrl) {
-        setimageUrl(userData.imgUrl);
-      }
-    });
+    if (userId) {
+      axios.get(url1).then((response) => {
+        const userData = response.data;
+        setUserData(userData);
+        setLikes(userData.booksLiked || []);
+        setBooksData(userData.booksBookmarked || []);
+        if (userData.imgUrl) {
+          setImageUrl(userData.imgUrl);
+        }
+      });
+    }
   };
 
   const fetchBooks = () => {
     axios.get(url2).then((response) => {
       const books = response.data.results.books;
-      setdataBooks(books);
-      setFilteredDataBooks(books);
+      const uniqueBooks = books.filter(
+        (book, index, self) =>
+          index === self.findIndex((b) => b.rank === book.rank)
+      );
+      setBooksData(uniqueBooks);
+      setFilteredBooks(uniqueBooks);
     });
   };
 
   const imageChanger = (e) => {
-    setinputImageUrl(e.target.value);
-    seterrorAlert(false);
+    setInputImageUrl(e.target.value);
+    setErrorAlert(false);
     if (e.target.value === '') {
-      setimageUrl(imagePlaceholder);
+      setImageUrl(imagePlaceholder);
     } else {
-      setimageUrl(e.target.value);
+      setImageUrl(e.target.value);
     }
   };
 
   const changeImage = () => {
     if (inputImageUrl !== '') {
       axios.put(url1, { imgUrl: inputImageUrl }).then((response) => {
-        seteditAlert(true);
-        setinputImageUrl('');
-        setTimeout(() => seteditAlert(false), 2000);
+        setEditAlert(true);
+        setInputImageUrl('');
+        setShowAvatarModel(false);
+        setTimeout(() => setEditAlert(false), 2000);
       });
     } else {
-      seterrorAlert(true);
+      setErrorAlert(true);
     }
   };
 
   const handleSearchBooks = () => {
-    let filtered = databooks;
+    let filtered = booksData;
 
     if (inputSearch !== '') {
-      filtered = filtered.filter((book) =>
+      filtered = booksData.filter((book) =>
         book.title.toLowerCase().includes(inputSearch.toLowerCase())
       );
     }
 
-    setFilteredDataBooks(filtered);
+    setFilteredBooks(filtered);
   };
 
   return (
@@ -90,7 +96,7 @@ function LandingPage() {
         rightTitle="Logout"
         rightTitleLink="./Login"
         img={imageUrl}
-        onClickAvatar={() => setshowAvatarModel(true)}
+        onClickAvatar={() => setShowAvatarModel(true)}
       />
       {editAlert && (
         <div className="alert alert-success fixed z-50 w-60 top-20 right-5">
@@ -112,6 +118,7 @@ function LandingPage() {
               <img
                 className="w-full h-full object-cover rounded"
                 src={imageUrl}
+                alt="Avatar"
               />
             </div>
             <label className="form-control w-full max-w-xs">
@@ -132,13 +139,12 @@ function LandingPage() {
           </div>
           <div className="modal-action">
             <div className="flex gap-5">
-              <button className="btn" onClick={() => setshowAvatarModel(false)}>
+              <button className="btn" onClick={() => setShowAvatarModel(false)}>
                 Cancel
               </button>
               <button
                 onClick={() => {
                   changeImage();
-                  setshowAvatarModel(false);
                 }}
                 className="btn btn-primary"
               >
@@ -156,7 +162,7 @@ function LandingPage() {
         <div className="my-5 flex justify-center items-center gap-5 rounded-lg p-5 max-md:flex-col w-[80%]">
           <SearchInput
             value={inputSearch}
-            onChange={(e) => setinputSearch(e.target.value)}
+            onChange={(e) => setInputSearch(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 handleSearchBooks();
@@ -169,22 +175,41 @@ function LandingPage() {
           >
             Search
           </button>
+          <button
+            onClick={() => {
+              navigate('./FavoriteBooks');
+            }}
+            className="btn btn-ghost bg-[#707487] text-white"
+          >
+            Favorite books
+          </button>
+          <button
+            onClick={() => {
+              navigate('./BookmarkedBooks');
+            }}
+            className="btn btn-ghost bg-[#B9785F] text-white"
+          >
+            Bookmarked books
+          </button>
         </div>
         <div className="flex justify-center items-center my-10 gap-10 md:gap-20 flex-wrap md:px-10">
-          {filteredDataBooks.length > 0 ? (
+          {filteredBooks.length > 0 ? (
             <div className="flex flex-wrap justify-center items-center gap-10 md:gap-20 my-10 px-10">
-              {filteredDataBooks.map((item) => (
+              {filteredBooks.map((item) => (
                 <CardBook
                   key={item.rank}
                   rank={item.rank}
                   title={item.title}
                   book_image={item.book_image}
+                  onClickView={() => {
+                    navigate(`./${item.rank}`);
+                  }}
                 />
               ))}
             </div>
           ) : (
             <div className="text-2xl text-primary h-[30vh]">
-              Ooops No Result
+              Oops! No results found.
             </div>
           )}
         </div>

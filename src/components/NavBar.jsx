@@ -18,9 +18,14 @@ function NavBar(props) {
   return (
     <div className="navbar bg-base-300 text-base-content h-24 max-md:h-auto max-md:flex-col max-md:items-start">
       <div className="flex-1 max-md:w-full max-md:flex max-md:justify-between">
-        <img className="w-10 ms-5" src={logo} alt="Logo" />
-        <a className="text-2xl ms-5 max-md:ms-0">Lagacy Books</a>
-
+        <ul className="menu flex justify-center items-center">
+          <li>
+            <Link className=" flex justify-center items-center" to={'../'}>
+              <img className="w-10" src={logo} alt="Logo" />
+              <p className="text-2xl ">Lagacy Books</p>
+            </Link>
+          </li>
+        </ul>
         {props.nameDetails && (
           <p className="mx-2 max-md:mt-2 max-md:text-lg">
             Welcome <span className="text-green-700">{props.nameDetails}</span>

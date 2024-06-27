@@ -3,75 +3,61 @@ import axios from 'axios';
 import LikeButton from './LikeButton/LikeButton.jsx';
 import BookMarkButton from './BookMarkButton/BookMarkButton.jsx';
 
-function CardBook({ rank, title, book_image }) {
+function CardBook({ rank, title, book_image, onClickView }) {
   const [isCheckedLike, setIsCheckedLike] = useState(false);
   const [isCheckedBook, setIsCheckedBook] = useState(false);
   const userId = localStorage.getItem('userId');
   const url1 = `https://667ba97dbd627f0dcc9358df.mockapi.io/LagacyBookstore/${userId}`;
-  if (userId) {
-    useEffect(() => {
+
+  useEffect(() => {
+    if (userId) {
       axios.get(url1).then((response) => {
         const userData = response.data;
         const booksLiked = userData.booksLiked || [];
         const booksBookMarked = userData.booksBookMarked || [];
-        if (booksLiked.includes(rank)) {
-          setIsCheckedLike(true);
-        }
-        if (booksBookMarked.includes(rank)) {
-          setIsCheckedBook(true);
-        }
+        setIsCheckedLike(booksLiked.includes(rank));
+        setIsCheckedBook(booksBookMarked.includes(rank));
       });
-    }, [rank, url1]);
-  }
+    }
+  }, [rank, url1, userId]);
 
-  function handleChangeLike() {
+  const handleChangeLike = () => {
     axios.get(url1).then((response) => {
       const userData = response.data;
       const booksLiked = userData.booksLiked || [];
-
-      let updatedBooksLiked;
-      if (isCheckedLike) {
-        updatedBooksLiked = booksLiked.filter((bookRank) => bookRank !== rank);
-      } else {
-        updatedBooksLiked = [...booksLiked, rank];
-      }
+      const updatedBooksLiked = isCheckedLike
+        ? booksLiked.filter((bookRank) => bookRank !== rank)
+        : [...booksLiked, rank];
 
       axios
         .put(url1, { booksLiked: updatedBooksLiked })
         .then((response) => {
-          console.log(response.data);
           setIsCheckedLike(!isCheckedLike);
         })
         .catch((error) => {
           console.error('Error updating like status:', error);
         });
     });
-  }
-  function handleChangeBook() {
+  };
+
+  const handleChangeBook = () => {
     axios.get(url1).then((response) => {
       const userData = response.data;
       const booksBookMarked = userData.booksBookMarked || [];
-
-      let updatedbooksBookMarked;
-      if (isCheckedLike) {
-        updatedbooksBookMarked = booksBookMarked.filter(
-          (bookRank) => bookRank !== rank
-        );
-      } else {
-        updatedbooksBookMarked = [...booksBookMarked, rank];
-      }
+      const updatedbooksBookMarked = isCheckedBook
+        ? booksBookMarked.filter((bookRank) => bookRank !== rank)
+        : [...booksBookMarked, rank];
 
       axios
         .put(url1, { booksBookMarked: updatedbooksBookMarked })
         .then((response) => {
-          console.log(response.data);
           setIsCheckedBook(!isCheckedBook);
         })
         .catch((error) => {
-          console.error('Error updating like status:', error);
+          console.error('Error updating bookmark status:', error);
         });
     });
-  }
+  };
 
   return (
     <div className="w-[18rem] border rounded-lg shadow-2xl bg-[#707487]">
@@ -90,7 +76,9 @@ function CardBook({ rank, title, book_image }) {
           <div className="flex items-center space-x-1 rtl:space-x-reverse"></div>
         </div>
         <div className="flex items-center justify-between">
-          <button className="btn btn-primary text-white">View Book</button>
+          <button onClick={onClickView} className="btn btn-primary text-white">
+            View Book
+          </button>
           <div className="flex gap-5 justify-center items-center">
             {userId && (
               <>
