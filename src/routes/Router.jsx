@@ -7,11 +7,13 @@ import FavoriteBooks from '../pages/FavoriteBooks';
 import BookmarkedBooks from '../pages/BookmarkedBooks';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import ErrorPage from '../pages/ErrorPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <LandingPage />,
+    errorElement: <ErrorPage />,
   },
   {
     path: '/:id',
@@ -20,10 +22,12 @@ const router = createBrowserRouter([
   {
     path: '/FavoriteBooks',
     element: <FavoriteBooks />,
+    errorElement: <ErrorPage />,
   },
   {
     path: '/BookmarkedBooks',
     element: <BookmarkedBooks />,
+    errorElement: <ErrorPage />,
   },
   {
     path: '/Login',

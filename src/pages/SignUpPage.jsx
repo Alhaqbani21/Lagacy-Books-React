@@ -77,16 +77,17 @@ function SignUpPage() {
               backgroundImage: `url(${bgImage})`,
             }}
           >
+            {/* To Do */}
             <div className="flex items-center h-full px-20 bg-[#383942] bg-opacity-40">
-              <div>
+              <div className="">
                 <h2 className="text-4xl font-bold text-white">
                   Lagacy Bookstore
                 </h2>
 
-                <p className="max-w-xl mt-3 text-gray-300">
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. In
-                  autem ipsa, nulla laboriosam dolores, repellendus perferendis
-                  libero suscipit nam temporibus molestiae
+                <p className="max-w-xl mt-3 text-white shadow-lg   ">
+                  Welcome to Lagacy Books, where tradition meets innovation.
+                  Explore popular books and take your experience to the next
+                  level.
                 </p>
               </div>
             </div>

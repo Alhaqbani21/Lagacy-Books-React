@@ -18,6 +18,7 @@ function LandingPage() {
   const [showAvatarModel, setShowAvatarModel] = useState(false);
   const [errorAlert, setErrorAlert] = useState(false);
   const [editAlert, setEditAlert] = useState(false);
+  const [featuresAlert, setfeaturesAlert] = useState(false);
   const [userData, setUserData] = useState(null);
   const [booksData, setBooksData] = useState([]);
   const [filteredBooks, setFilteredBooks] = useState([]);
@@ -103,6 +104,11 @@ function LandingPage() {
           <span>Avatar has been updated</span>
         </div>
       )}
+      {featuresAlert && (
+        <div className="alert alert-warning text-white fixed z-50 w-64 top-20 right-5">
+          <span>Sign up to use this feature</span>
+        </div>
+      )}
       <dialog
         id="my_modal_5"
         className="modal modal-bottom sm:modal-middle"
@@ -177,7 +183,14 @@ function LandingPage() {
           </button>
           <button
             onClick={() => {
-              navigate('./FavoriteBooks');
+              if (!userId) {
+                setfeaturesAlert(true);
+                setTimeout(() => {
+                  setfeaturesAlert(false);
+                }, 2000);
+              } else {
+                navigate('./FavoriteBooks');
+              }
             }}
             className="btn btn-ghost bg-[#707487] text-white"
           >
@@ -185,7 +198,14 @@ function LandingPage() {
           </button>
           <button
             onClick={() => {
-              navigate('./BookmarkedBooks');
+              if (!userId) {
+                setfeaturesAlert(true);
+                setTimeout(() => {
+                  setfeaturesAlert(false);
+                }, 2000);
+              } else {
+                navigate('./BookmarkedBooks');
+              }
             }}
             className="btn btn-ghost bg-[#B9785F] text-white"
           >

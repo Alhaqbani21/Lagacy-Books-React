@@ -2,33 +2,33 @@ import React from 'react';
 import landingBackground from '../assets/landingBackground.svg';
 
 function HeroLanding() {
+  const ss = 'bg-[#707487]';
   return (
     <div
-      className="hero min-h-[70vh]"
-      //   style={{
-      //     backgroundImage: `url(${landingBackground})`,
-      //   }}
+      className="hero min-h-[70vh] bg-primary"
       style={{
-        backgroundColor: '#707487',
+        // backgroundImage: `url(${landingBackground})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
       }}
     >
-      <div className=""></div>
       <div className="hero-content text-neutral-content max-md:text-center">
-        <div className="flex justify-between items-center max-md:flex-col-reverse max-md:gap-7">
-          <div className="">
-            <h1 className="mb-5 text-5xl font-bold">
-              Go beyond your imagination
+        <div className="flex justify-between items-center max-md:flex-col-reverse max-md:gap-7 gap-14">
+          <div className="text-left max-md:text-center bg-[#707487] max-md:p-2 p-10 rounded-lg shadow-lg">
+            <h1 className="mb-5 text-5xl max-md:text-3xl font-bold text-secondary-content">
+              Discover the Legacy of Excellence
             </h1>
-
-            {/* 
-          <p className="mb-5">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
-          </p> */}
-            <button className="btn btn-primary">Get Started</button>
+            <p className="mb-5 text-xl text-secondary-content">
+              Welcome to Lagacy Books, where tradition meets innovation. Explore
+              popular books and take your experience to the next level.
+            </p>
           </div>
-          <img className="h-[50%] w-[50%]" src={landingBackground} alt="" />
+
+          <img
+            className="h-[50%] w-[50%] max-md:w-full max-md:hidden"
+            src={landingBackground}
+            alt="Legacy Store"
+          />
         </div>
       </div>
     </div>

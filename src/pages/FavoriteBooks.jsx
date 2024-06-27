@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import NavBar from '../components/NavBar';
 import imagePlaceholder from '../assets/imagePlaceholder.png';
 import axios from 'axios';
-import CardBook from '../components/CardBook'; // Assuming you have a CardBook component to display each book
+import CardBook from '../components/CardBook';
 import Footer from '../components/Footer';
 
 import { useNavigate } from 'react-router-dom';
@@ -18,9 +18,19 @@ function FavoriteBooks() {
   const [favoriteBooks, setFavoriteBooks] = useState([]);
   const navigate = useNavigate();
 
+  const [error, setError] = useState(null);
+
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (userId) {
+      fetchData();
+    } else {
+      setError('No allowed Access');
+    }
+  }, [userId]);
+
+  if (error) {
+    throw Error;
+  }
 
   const fetchData = () => {
     axios.get(url1).then((response) => {

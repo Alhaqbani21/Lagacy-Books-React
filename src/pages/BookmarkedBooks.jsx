@@ -3,7 +3,7 @@ import NavBar from '../components/NavBar';
 import imagePlaceholder from '../assets/imagePlaceholder.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import CardBook from '../components/CardBook'; // Assuming you have a CardBook component to display each book
+import CardBook from '../components/CardBook';
 import Footer from '../components/Footer';
 
 function BookmarkedBooks() {
@@ -17,9 +17,19 @@ function BookmarkedBooks() {
   const [booksBookMarked, setBooksBookMarked] = useState([]);
   const navigate = useNavigate();
 
+  const [error, setError] = useState(null);
+
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (userId) {
+      fetchData();
+    } else {
+      setError('No allowed Access');
+    }
+  }, [userId]);
+
+  if (error) {
+    throw Error;
+  }
 
   const fetchData = () => {
     axios.get(url1).then((response) => {
@@ -36,7 +46,6 @@ function BookmarkedBooks() {
   };
 
   const fetchBooks = (bookmarkedBookIds) => {
-    // Example URL for fetching bookmarked books based on IDs
     const url2 = `https://api.nytimes.com/svc/books/v3/lists/hardcover-fiction.json?api-key=s2775g3di5VkoX0jmyif1P9Px78znALO`;
 
     axios.get(url2).then((response) => {
@@ -142,7 +151,7 @@ function BookmarkedBooks() {
 
         <div className="container mx-auto py-8">
           <div className="divider divider-primary text-4xl max-md:text-2xl">
-            Favorite Books
+            Bookmarked Books
           </div>
           <div className="flex justify-center items-center my-10 gap-10 md:gap-20 flex-wrap md:px-10">
             {booksBookMarked.length > 0 ? (

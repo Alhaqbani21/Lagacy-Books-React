@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import NavBar from '../components/NavBar';
 import imagePlaceholder from '../assets/imagePlaceholder.png';
@@ -14,6 +14,7 @@ function BookDetails() {
   const [showAvatarModel, setshowAvatarModel] = useState(false);
   const [inputImageUrl, setinputImageUrl] = useState('');
   const [errorAlert, seterrorAlert] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (userId) {
@@ -182,6 +183,14 @@ function BookDetails() {
                   </ul>
                 </div>
               </div>
+              <button
+                onClick={() => {
+                  navigate('../');
+                }}
+                className="btn btn-primary text-white self-end"
+              >
+                Back To Home
+              </button>
             </div>
           </div>
         </div>
