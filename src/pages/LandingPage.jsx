@@ -207,7 +207,7 @@ function LandingPage() {
                 navigate('./BookmarkedBooks');
               }
             }}
-            className="btn btn-ghost bg-[#B9785F] text-white"
+            className="btn btn-ghost bg-[#f9a82691] text-white"
           >
             Bookmarked books
           </button>

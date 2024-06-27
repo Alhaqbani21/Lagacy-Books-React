@@ -16,7 +16,7 @@ function NavBar(props) {
   };
 
   return (
-    <div className="navbar bg-base-300 text-base-content h-24 max-md:h-auto max-md:flex-col max-md:items-start">
+    <div className="navbar bg-base-200 text-base-content h-24 max-md:h-auto max-md:flex-col max-md:items-start">
       <div className="flex-1 max-md:w-full max-md:flex max-md:justify-between">
         <ul className="menu flex justify-center items-center">
           <li>

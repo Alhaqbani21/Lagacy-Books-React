@@ -16,6 +16,7 @@ function FavoriteBooks() {
   const [inputImageUrl, setInputImageUrl] = useState('');
   const [errorAlert, setErrorAlert] = useState(false);
   const [favoriteBooks, setFavoriteBooks] = useState([]);
+  const [changeState, setChangeState] = useState(false);
   const navigate = useNavigate();
 
   const [error, setError] = useState(null);
@@ -26,7 +27,7 @@ function FavoriteBooks() {
     } else {
       setError('No allowed Access');
     }
-  }, [userId]);
+  }, [userId, changeState]);
 
   if (error) {
     throw Error;
@@ -79,22 +80,6 @@ function FavoriteBooks() {
     } else {
       setErrorAlert(true);
     }
-  };
-
-  const removeFavoriteBook = (bookId) => {
-    axios.get(url1).then((response) => {
-      const userData = response.data;
-      const updatedLikedBooks = userData.booksLiked.filter(
-        (id) => id !== bookId
-      );
-      axios
-        .put(`${url1}/${userId}`, { booksLiked: updatedLikedBooks })
-        .then(() => {
-          setFavoriteBooks(
-            favoriteBooks.filter((book) => book.rank !== bookId)
-          );
-        });
-    });
   };
 
   return (
@@ -180,7 +165,6 @@ function FavoriteBooks() {
                   rank={book.rank}
                   title={book.title}
                   book_image={book.book_image}
-                  onRemove={() => removeFavoriteBook(book.rank)}
                   onClickView={() => {
                     navigate(`../${book.rank}`);
                   }}

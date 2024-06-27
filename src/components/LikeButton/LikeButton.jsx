@@ -9,32 +9,17 @@ function LikeButton(props) {
         onChange={props.onChangeLike}
         className={styles.checkbox}
       />
-      {/*  */}
       <svg
-        fill={props.isCheckedLike ? 'pink' : 'white'}
-        version="1.1"
-        id="XMLID_298_"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlnsXlink="http://www.w3.org/1999/xlink"
         viewBox="0 0 24 24"
-        xmlSpace="preserve"
+        xmlns="http://www.w3.org/2000/svg"
+        fill={props.isCheckedLike ? 'red' : 'black'}
         className={styles.icon}
       >
-        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-        <g
-          id="SVGRepo_tracerCarrier"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        ></g>
-        <g id="SVGRepo_iconCarrier">
-          {' '}
-          <g id="favorite">
-            {' '}
-            <path d="M12,23.2l-0.6-0.5C8.7,20.7,0,13.5,0,7.3C0,3.8,2.9,1,6.5,1c2.2,0,4.3,1.1,5.5,2.9l0,0l0,0C13.2,2.1,15.3,1,17.5,1 C21.1,1,24,3.8,24,7.3c0,6.3-8.7,13.4-11.4,15.5L12,23.2z M6.5,2.9C4,2.9,2,4.8,2,7.2c0,4.1,5.1,9.5,10,13.4 c4.9-3.9,10-9.3,10-13.4c0-2.4-2-4.3-4.5-4.3c-1.6,0-3,0.8-3.8,2L12,7.6L10.3,5C9.5,3.7,8.1,2.9,6.5,2.9z"></path>{' '}
-          </g>{' '}
-        </g>
+        <path
+          d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6.12 3.12 5 5.5 5c1.74 0 3.41 1.01 4.5 2.44C11.09 6.01 12.76 5 14.5 5 16.88 5 18 6.12 18 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+          stroke="none"
+        />
       </svg>
-      {/*  */}
     </label>
   );
 }

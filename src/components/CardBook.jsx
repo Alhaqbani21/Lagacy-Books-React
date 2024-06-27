@@ -58,18 +58,18 @@ function CardBook({ rank, title, book_image, onClickView }) {
         });
     });
   };
-
+  // shadow-2xl bg-[#BCCCCB]
   return (
-    <div className="w-[18rem] border rounded-lg shadow-2xl bg-[#707487]">
-      <div className="w-full h-[250px]">
+    <div className="w-[18rem] border rounded-lg  hover:scale-105 transition-all cursor-pointer shadow-2xl group ">
+      <div className="w-full h-full">
         <img
-          className="rounded-t-lg w-full h-full object-cover"
+          className="rounded-t-lg w-full h-full opacity-90 object-fill group-hover:opacity-100"
           src={book_image}
           alt="product image"
         />
       </div>
       <div className="px-5 pb-5 my-7">
-        <h5 className="text-xl font-semibold tracking-tight text-white">
+        <h5 className="text-xl font-semibold tracking-tight text-gray-500">
           {title}
         </h5>
         <div className="flex items-center mt-2.5 mb-5">

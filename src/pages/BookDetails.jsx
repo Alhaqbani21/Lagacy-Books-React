@@ -140,8 +140,8 @@ function BookDetails() {
           </div>
         </div>
       </dialog>
-      <div className="bg-base-200 min-h-[90vh] flex justify-center items-center max-md:pt-5">
-        <div className="max-w-[70%] max-md:w-[100%] bg-[#c7cbe3] rounded-lg shadow-lg overflow-hidden ">
+      <div className="bg-base-300 min-h-[90vh] flex justify-center items-center max-md:pt-5">
+        <div className="max-w-[70%] max-md:w-[100%] bg-[#BCCCCB] rounded-lg shadow-lg overflow-hidden ">
           <div className="p-4 ">
             <div className="flex items-center mb-4 max-md:flex-col gap-10 ">
               <div className="flex-col justify-center items-center mb-4 max-md:flex-col gap-10 ">
@@ -151,17 +151,19 @@ function BookDetails() {
                 <img
                   src={book.book_image}
                   alt={book.title}
-                  className="w-96 h-full object-cover rounded-lg mr-4"
+                  className="w-96 h-full object-cover rounded-lg mr-4 border-2 "
                 />
               </div>
-              <div className="font-bold">
+              <div className="font-bold ">
                 <p className="text-3xl text-secondary font-bold">
                   {book.author}
                 </p>
                 <p className="text-secondary text-lg font-bold">
                   Publisher: {book.publisher}
                 </p>
-                <p className="text-secondary mt-2">{book.description}</p>
+                <p className="text-secondary mt-2 text-lg max-md:w-[100%] w-[80%]">
+                  {book.description}
+                </p>
                 <p className="text-secondary font-semibold mt-4">
                   ${book.price}
                 </p>

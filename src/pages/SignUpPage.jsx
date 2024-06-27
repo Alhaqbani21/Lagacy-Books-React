@@ -69,7 +69,7 @@ function SignUpPage() {
 
   return (
     <>
-      <div className="bg-[#8A8D99] flex justify-center items-center h-screen">
+      <div className="bg-[#D5C7B9] flex justify-center items-center h-screen">
         <div className="flex w-3/4 shadow-2xl rounded-lg overflow-hidden bg-[#383942]">
           <div
             className="hidden bg-cover lg:block lg:w-2/4"
@@ -181,7 +181,7 @@ function SignUpPage() {
                   <div className="mt-6">
                     <button
                       onClick={registerData}
-                      className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-primary rounded-md hover:bg-[#c99273] hover:text-black"
+                      className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-primary rounded-md hover:bg-[#D5C7B9] hover:text-black"
                     >
                       Sign Up
                     </button>
@@ -203,7 +203,7 @@ function SignUpPage() {
                 onClick={() => {
                   navigate('../');
                 }}
-                className="w-[50%] my-5 px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-primary rounded-md hover:bg-[#c99273] hover:text-black"
+                className="w-[50%] my-5 px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-primary rounded-md hover:bg-[#D5C7B9] hover:text-black"
               >
                 Home Page
               </button>

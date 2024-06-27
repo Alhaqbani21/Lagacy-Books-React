@@ -5,7 +5,7 @@ function HeroLanding() {
   const ss = 'bg-[#707487]';
   return (
     <div
-      className="hero min-h-[70vh] bg-primary"
+      className="hero min-h-[70vh] bg-[#BCCCCB] "
       style={{
         // backgroundImage: `url(${landingBackground})`,
         backgroundSize: 'cover',
@@ -14,7 +14,7 @@ function HeroLanding() {
     >
       <div className="hero-content text-neutral-content max-md:text-center">
         <div className="flex justify-between items-center max-md:flex-col-reverse max-md:gap-7 gap-14">
-          <div className="text-left max-md:text-center bg-[#707487] max-md:p-2 p-10 rounded-lg shadow-lg">
+          <div className="text-left max-md:text-center bg-[#32586D] max-md:p-2 p-10 rounded-lg shadow-lg">
             <h1 className="mb-5 text-5xl max-md:text-3xl font-bold text-secondary-content">
               Discover the Legacy of Excellence
             </h1>
